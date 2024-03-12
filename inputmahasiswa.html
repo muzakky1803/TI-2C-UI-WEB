@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <style>
+        table {
+            width: 400px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid whitesmoke;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color:lightslategray;
+        }
+        body {
+        font-family: 'Times New Roman', Times, serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #2600ff;
+        }
+
+        h1 {
+        font-size: 2rem;
+        margin-top: 0;
+        }
+
+        form {
+        margin-bottom: 20px;
+        }
+
+        label {
+        display: block;
+        margin-bottom: 5px;
+        }
+
+        input[type="number"], input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        }
+
+        button[type="button"] {
+        background-color: #2600ff;
+        color: whitesmoke;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: background-color 0.3s;
+        }
+
+        button[type="button"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+        }
+
+        button[type="button"]:active::before {
+        transform: translateX(0);
+        }
+
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        }
+
+        th, td {
+        border: 1px solid rgb(111, 108, 108);
+        padding: 8px;
+        text-align: left;   
+        }
+
+        th {
+        background-color: lightgray;
+        }
+        </style>
+    
+        <title>Tugas Javascript</title>
+    </head>
+    <body>
+        <form id="studentForm">
+            <label for="nim">NIM:</label><br>
+            <input type="number" id="nim" name="nim"><br>
+            <label for="name">Nama:</label><br>
+            <input type="text" id="name" name="name"><br><br>
+            <button type="button" onclick="saveStudent()">Save</button>
+        </form>
+
+        <table id="studentTable" style="width:400;">
+            <head>
+              <tr>
+                <th style="width:30%">NIM</th>
+                <th style="width:70%">Nama</th>
+              </tr>
+            </thead>
+            <tbody ></tbody>
+        </table>
+
+        <script>
+            // Define array untuk list mahasiswa
+            var arrStudent = [];
+
+            // Define object mahasiswa
+            function Student(nim,name) {
+                this.nim = nim;
+                this.name = name;
+            }
+
+            // Fungsi simpan data mahasiswa
+            function saveStudent() {
+                // Deklarasi variable dr id element input
+                var studentForm = document.getElementById("studentForm");
+                var nim = document.getElementById("nim").value;
+                var name = document.getElementById("name").value;
+
+                // Buat student object baru
+                var student = new Student(nim,name);
+                arrStudent.push(student);
+                // Reset Form
+                studentForm.reset();
+                // Tampilkan data yang ditambahkan >> fungsi show
+                showStudent(student);
+
+                // Tampilkan log dan Simpan data ke array
+                console.log(student);
+                console.log(arrStudent);
+                showStudentList(student);
+            }
+
+            // Menampilkan data mahasiswa ke HTML
+            function showStudent(student) {    
+                var tbody = document.querySelector("#studentTable tbody");
+                var tr = document.createElement("tr");
+                // buat kolom value nim
+                var tdNim = document.createElement("td");
+                tdNim.textContent = student.nim;
+                tr.appendChild(tdNim);
+
+                // buat kolom value nama
+                var tdNama = document.createElement("td");
+                tdNama.textContent = student.name;
+                tr.appendChild(tdNama);
+
+
+                tbody.appendChild(tr);
+            }
+        </script>
+    </body>
+</html>
